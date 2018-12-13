@@ -1,0 +1,11 @@
+sum 0
+cash 0
+card 0
+salary 0
+advance 0
+prize 0
+transport 0
+food 0
+shoping 0
+study 0
+relax 0
