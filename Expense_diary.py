@@ -9,7 +9,7 @@ class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('Expense_diary.ui', self)
-        self.sum = 0
+
         self.expenceButton.clicked.connect(self.expence)
         self.incomeButton.clicked.connect(self.income)
         self.f = 0
@@ -103,43 +103,37 @@ class MyWidget(QMainWindow):
             self.processing()
 
     def processing(self):
-        try:
-            # обработка операции "Доход"
-            if (self.f == 1):
-                if (self.textIncome == "Заработная плата"):
-                    self.data['salary'] = str(int(self.data['salary']) + int(self.sumIncome))
-                elif (self.textIncome == "Аванс"):
-                    self.data['advance'] = str(int(self.data['advance']) + int(self.sumIncome))
-                elif (self.textIncome == "Премия"):
-                    self.data['prize'] = str(int(self.data['prize']) + int(self.sumIncome))
-                if (self.textBalance == "Наличные"):
-                    self.data['cash'] = str(int(self.data['cash']) + int(self.sumIncome))
-                elif (self.textBalance == "Карта"):
-                    self.data['card'] = str(int(self.data['card']) + int(self.sumIncome))
-            # обработка операции "Расход"
-            elif (self.f == -1):
-                if (self.textExpense == "Транспорт"):
-                    self.data['transport'] = str(int(self.data['transport']) + int(self.sumExpense))
-                elif (self.textExpense == "Питание"):
-                    self.data['food'] = str(int(self.data['food']) + int(self.sumExpense))
-                elif (self.textExpense == "Покупки"):
-                    self.data['shoping'] = str(int(self.data['shoping']) + int(self.sumExpense))
-                elif (self.textExpense == "Учеба"):
-                    self.data['study'] = str(int(self.data['study']) + int(self.sumExpense))
-                elif (self.textExpense == "Развлечения"):
-                    self.data['relax'] = str(int(self.data['relax']) + int(self.sumExpense))
-                if (self.textBalance == "Наличные"):
-                    self.data['cash'] = str(int(self.data['cash']) - int(self.sumExpense))
-                elif (self.textBalance == "Карта"):
-                    self.data['card'] = str(int(self.data['card']) - int(self.sumExpense))
-        except Exception as e:
-            print(e)
-        #дисплей
+        # обработка операции "Доход"
+        if (self.f == 1):
+            if (self.textIncome == "Заработная плата"):
+                self.data['salary'] = str(int(self.data['salary']) + int(self.sumIncome))
+            elif (self.textIncome == "Аванс"):
+                self.data['advance'] = str(int(self.data['advance']) + int(self.sumIncome))
+            elif (self.textIncome == "Премия"):
+                self.data['prize'] = str(int(self.data['prize']) + int(self.sumIncome))
+            if (self.textBalance == "Наличные"):
+                self.data['cash'] = str(int(self.data['cash']) + int(self.sumIncome))
+            elif (self.textBalance == "Карта"):
+                self.data['card'] = str(int(self.data['card']) + int(self.sumIncome))
+        # обработка операции "Расход"
+        elif (self.f == -1):
+            if (self.textExpense == "Транспорт"):
+                self.data['transport'] = str(int(self.data['transport']) + int(self.sumExpense))
+            elif (self.textExpense == "Питание"):
+                self.data['food'] = str(int(self.data['food']) + int(self.sumExpense))
+            elif (self.textExpense == "Покупки"):
+                self.data['shoping'] = str(int(self.data['shoping']) + int(self.sumExpense))
+            elif (self.textExpense == "Учеба"):
+                self.data['study'] = str(int(self.data['study']) + int(self.sumExpense))
+            elif (self.textExpense == "Развлечения"):
+                self.data['relax'] = str(int(self.data['relax']) + int(self.sumExpense))
+            if (self.textBalance == "Наличные"):
+                self.data['cash'] = str(int(self.data['cash']) - int(self.sumExpense))
+            elif (self.textBalance == "Карта"):
+                self.data['card'] = str(int(self.data['card']) - int(self.sumExpense))
+        # дисплей
         self.printData()
-        try:
-            self.changeFail()
-        except Exception as e:
-            print(e)
+        self.changeFail()
         self.f = 0
 
     def changeFail(self):
@@ -166,7 +160,7 @@ class MyWidget(QMainWindow):
                 self.delete()
 
     def delete(self):
-        #обнулять все значение из файла
+        # обнулять все значение из файла
         name = ['cash', 'card', 'salary', 'advance', 'prize',
                 'transport', 'food', 'shoping', 'study', 'relax']
         for i in range(10):
@@ -175,7 +169,8 @@ class MyWidget(QMainWindow):
         self.printData()
 
 
-app = QApplication(sys.argv)
-ex = MyWidget()
-ex.show()
-sys.exit(app.exec_())
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyWidget()
+    ex.show()
+    sys.exit(app.exec_())
