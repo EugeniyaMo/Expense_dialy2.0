@@ -3,12 +3,15 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 from PyQt5.QtWidgets import QInputDialog
 from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit
+from PyQt5.QtGui import QIcon
 
 
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('Expense_diary.ui', self)
+        self.setWindowTitle('Expense diary')
+        self.setWindowIcon(QIcon('icon.png'))
 
         self.expenceButton.clicked.connect(self.expence)
         self.incomeButton.clicked.connect(self.income)
