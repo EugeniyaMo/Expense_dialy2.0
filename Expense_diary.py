@@ -13,6 +13,10 @@ class MyWidget(QMainWindow):
         self.setWindowTitle('Expense diary')
         self.setWindowIcon(QIcon('icon.png'))
 
+        self.expenceButton.setStyleSheet("background-color: #ffd8bd")
+        self.incomeButton.setStyleSheet("background-color: #ffd8bd")
+        self.deleteButton.setStyleSheet("background-color: #edd0be")
+
         self.expenceButton.clicked.connect(self.expence)
         self.incomeButton.clicked.connect(self.income)
         self.f = 0
@@ -34,19 +38,23 @@ class MyWidget(QMainWindow):
         self.lcdNumber_salary.display(int(self.data['salary']))
         self.lcdNumber_advance.display(int(self.data['advance']))
         self.lcdNumber_prize.display(int(self.data['prize']))
+        self.lcdNumber_otherIn.display(int(self.data['otherIn']))
         self.lcdNumber_transport.display(int(self.data['transport']))
         self.lcdNumber_food.display(int(self.data['food']))
         self.lcdNumber_shoping.display(int(self.data['shoping']))
         self.lcdNumber_study.display(int(self.data['study']))
         self.lcdNumber_relax.display(int(self.data['relax']))
+        self.lcdNumber_otherEx.display(int(self.data['otherEx']))
         self.lcdNumber_income.display(int(self.data['salary'])
                                       + int(self.data['advance'])
-                                      + int(self.data['prize']))
+                                      + int(self.data['prize'])
+                                      + int(self.data['otherIn']))
         self.lcdNumber_expense.display(int(self.data['transport'])
                                        + int(self.data['food'])
                                        + int(self.data['shoping'])
                                        + int(self.data['study'])
-                                       + int(self.data['relax']))
+                                       + int(self.data['relax'])
+                                       + int(self.data['otherEx']))
 
     def expence(self):
         self.f = -1
@@ -62,7 +70,8 @@ class MyWidget(QMainWindow):
             self,
             "Категория расхода",
             "Выберете категорию расхода:",
-            ("Транспорт", "Питание", "Покупки", "Учеба", "Развлечения"),
+            ("Транспорт", "Питание", "Покупки", "Учеба", "Развлечения",
+             "Другое"),
             0,
             False
         )
@@ -84,7 +93,7 @@ class MyWidget(QMainWindow):
             self,
             "Категория дохода",
             "Выберете категорию дохода:",
-            ("Заработная плата", "Аванс", "Премия"),
+            ("Заработная плата", "Аванс", "Премия", "Другое"),
             0,
             False
         )
@@ -114,6 +123,8 @@ class MyWidget(QMainWindow):
                 self.data['advance'] = str(int(self.data['advance']) + int(self.sumIncome))
             elif (self.textIncome == "Премия"):
                 self.data['prize'] = str(int(self.data['prize']) + int(self.sumIncome))
+            elif (self.textIncome == "Другое"):
+                self.data['otherIn'] = str(int(self.data['otherIn']) + int(self.sumIncome))
             if (self.textBalance == "Наличные"):
                 self.data['cash'] = str(int(self.data['cash']) + int(self.sumIncome))
             elif (self.textBalance == "Карта"):
@@ -130,6 +141,8 @@ class MyWidget(QMainWindow):
                 self.data['study'] = str(int(self.data['study']) + int(self.sumExpense))
             elif (self.textExpense == "Развлечения"):
                 self.data['relax'] = str(int(self.data['relax']) + int(self.sumExpense))
+            elif (self.textExpense == "Другое"):
+                self.data['otherEx'] = str(int(self.data['otherEx']) + int(self.sumExpense))
             if (self.textBalance == "Наличные"):
                 self.data['cash'] = str(int(self.data['cash']) - int(self.sumExpense))
             elif (self.textBalance == "Карта"):
@@ -141,8 +154,8 @@ class MyWidget(QMainWindow):
 
     def changeFail(self):
         f = open("data.txt", mode='w')
-        name = ['cash', 'card', 'salary', 'advance', 'prize',
-                'transport', 'food', 'shoping', 'study', 'relax']
+        name = ['cash', 'card', 'salary', 'advance', 'prize', 'otherIn',
+                'transport', 'food', 'shoping', 'study', 'relax', 'otherEx']
         for i in range(10):
             f.write(name[i] + ' ' + self.data[name[i]])
             if (i != 9):
@@ -164,8 +177,8 @@ class MyWidget(QMainWindow):
 
     def delete(self):
         # обнулять все значение из файла
-        name = ['cash', 'card', 'salary', 'advance', 'prize',
-                'transport', 'food', 'shoping', 'study', 'relax']
+        name = ['cash', 'card', 'salary', 'advance', 'prize', 'otherIn',
+                'transport', 'food', 'shoping', 'study', 'relax', 'otherEx']
         for i in range(10):
             self.data[name[i]] = '0'
         self.changeFail()
