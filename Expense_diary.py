@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
-from PyQt5.QtWidgets import QInputDialog, QErrorMessage
+from PyQt5.QtWidgets import QInputDialog
 from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit
 from PyQt5.QtGui import QIcon
 
