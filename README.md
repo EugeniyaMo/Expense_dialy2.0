@@ -1,1 +1,1 @@
-# Expense_dialy2.0
+# Expense_diary2.0
