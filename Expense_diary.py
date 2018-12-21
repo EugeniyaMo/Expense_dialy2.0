@@ -7,6 +7,7 @@ from PyQt5.QtGui import QIcon
 
 COUNT_CATEGORY = 12
 
+
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -212,7 +213,6 @@ class MyWidget(QMainWindow):
             self.printData()
         except Exception as e:
             pass
-
 
 
 if __name__ == '__main__':
